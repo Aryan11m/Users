@@ -1,0 +1,55 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Chrome",
+            "request": "launch",
+            "type": "chrome",
+            "url": "http://localhost:8080",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "name": "firsttask",
+            "cwd": "firsttask",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "firsttask (profile mode)",
+            "cwd": "firsttask",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "firsttask (release mode)",
+            "cwd": "firsttask",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "task",
+            "cwd": "task",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "task (profile mode)",
+            "cwd": "task",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "task (release mode)",
+            "cwd": "task",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
