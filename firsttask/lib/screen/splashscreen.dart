@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firsttask/screen/loginpage.dart';
 import 'package:get/get.dart';
 import 'package:firsttask/screen/homepage.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ with TickerProviderStateMixin{
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 3),(){
-      Get.off(() => Homepage());
+      Get.off(() => LoginPage());
     });
   }
    @override

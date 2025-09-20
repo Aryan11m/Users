@@ -1,7 +1,9 @@
+import 'package:firsttask/screen/loginpage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'details.dart';
 import '../controller/ucontroller.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -13,6 +15,9 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   final UserController controller = Get.put(UserController());
   final searchQuery = ''.obs;
+
+  // Add refresh controller
+  final RefreshController _refreshController = RefreshController();
 
   List<User> get filteredUsers {
     final query = searchQuery.value.toLowerCase().trim();
@@ -47,6 +52,22 @@ class _HomepageState extends State<Homepage> {
   }
 
   @override
+  void dispose() {
+    _refreshController.dispose();
+    super.dispose();
+  }
+
+  // Handle refresh
+  Future<void> _onRefresh() async {
+    try {
+      await controller.refreshUsers();
+      _refreshController.refreshCompleted();
+    } catch (e) {
+      _refreshController.refreshFailed();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -59,7 +80,12 @@ class _HomepageState extends State<Homepage> {
             ),
           ),
         ),
-        title: const Text('Users'),
+        actions: [
+          IconButton(onPressed: (){
+            Get.off(() => LoginPage());
+          }, icon: const Icon(Icons.logout,color: Colors.white,))
+        ],
+        title: const Text('Users',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: Padding(
@@ -92,10 +118,15 @@ class _HomepageState extends State<Homepage> {
           );
         }
 
-        return ListView.builder(
-          itemCount: users.length,
-          padding: const EdgeInsets.all(8),
-          itemBuilder: (context, index) => _buildUserCard(users[index]),
+        return SmartRefresher(
+          controller: _refreshController,
+          onRefresh: _onRefresh,
+          header: const WaterDropHeader(),
+          child: ListView.builder(
+            itemCount: users.length,
+            padding: const EdgeInsets.all(8),
+            itemBuilder: (context, index) => _buildUserCard(users[index]),
+          ),
         );
       }),
     );

@@ -51,7 +51,7 @@ class Userdetails extends StatelessWidget {
         ),
         title: Text(
           user.name,
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
         ),
       ),
       body: SingleChildScrollView(
